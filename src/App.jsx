@@ -1,50 +1,45 @@
-import { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import { AuthProvider } from "./context/AuthContext";
-import { UsersProvider } from "./context/UsersContext";
-import { VehiclesProvider } from "./context/VehiclesContext"
-
-import './styles/style.css';
-import Home from './routes/Home'
-import Login from './routes/Login'
-
-import ProtectedRoute from "./ProtectedRoute";
-import ValidLoginPage  from "./ValidLoginPage";
+import { useState } from 'react'
+import logo from './logo.svg'
+import './App.css'
 
 function App() {
-  useEffect(() => {
-    async function expToken() {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        return null
-      }
-      const exp = JSON.parse(token).expiration;
-      const now = Date.now();
-      if (exp < now) {
-        localStorage.removeItem('token');
-        return null;
-      }
-    }
-    expToken();
-  }, []);
+  const [count, setCount] = useState(0)
+
   return (
-    <AuthProvider>
-      <UsersProvider>
-        <VehiclesProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route element={<ValidLoginPage/>}>
-                <Route path='/login' element={ <Login/>} />
-              </Route>
-              <Route element={<ProtectedRoute/>}>            
-                <Route path='/' element={<Home/>} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </VehiclesProvider>
-      </UsersProvider>
-    </AuthProvider>
-  );
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>Hello Vite + React!</p>
+        <p>
+          <button type="button" onClick={() => setCount((count) => count + 1)}>
+            count is: {count}
+          </button>
+        </p>
+        <p>
+          Edit <code>App.jsx</code> and save to test HMR updates.
+        </p>
+        <p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+          {' | '}
+          <a
+            className="App-link"
+            href="https://vitejs.dev/guide/features.html"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Vite Docs
+          </a>
+        </p>
+      </header>
+    </div>
+  )
 }
-export default App;
+
+export default App
