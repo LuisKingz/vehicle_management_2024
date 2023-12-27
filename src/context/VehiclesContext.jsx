@@ -34,6 +34,7 @@ export const VehiclesProvider = ({ children }) => {
   const getVehicles = async () => {
     const res = await getVehiclesRequest();
     setVehicles(res.data);
+    return res.data;
   };
 
   const deleteVehicle = async (placa) => {

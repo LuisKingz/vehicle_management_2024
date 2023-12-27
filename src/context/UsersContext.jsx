@@ -22,12 +22,16 @@ export const UsersProvider = ({ children }) => {
   const signup = async (user) => {
     try {
       const res = await addUserRequest(user);
-      console.log(res);
+      // console.log(res);
       if (!res.status) {
         return;
       }
+      return [ "success", "Usuario creado correctamente"];
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data[0]);
+      if(error.response.data[0] === "The email alredy exists"){
+        return [ "error", "El correo ya existe"];
+      }
     }
   };
 
