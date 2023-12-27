@@ -1,0 +1,41 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #f2f2f2;
+}
+
+.card-container {
+    height: 80vh;
+}
+
+.card {
+    width: 25rem;
+    height: 22rem;
+}
+
+.table-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.table {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-acciones {
+    width: '25px';
+    height: '30px';
+    padding: '0px'
+}
+
+.dropdown-menu {
+    cursor: pointer;
+}
+
+.icon-button{
+    cursor: pointer;
+    width: '25px';
+    height: '30px';
+    padding: '0px';
+}
