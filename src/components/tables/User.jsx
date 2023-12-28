@@ -122,7 +122,6 @@ export const User = () => {
 
   const handleEdit = async (email) => {
     const userFinded = await getUser(email);
-    console.log(userFinded);
     setUpdateData(userFinded);
     setIsEdit(true);
     setIsVisible(true);

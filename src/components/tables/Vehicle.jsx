@@ -52,6 +52,7 @@ export const Vehicle = () => {
     const res = await getVehicles();
     setData(res);
   };
+  
   const filterVehicles = (search) => {
     if (search === "") {
       getVehicleData();
@@ -150,10 +151,9 @@ export const Vehicle = () => {
     if (data === undefined) {
       return;
     }
-    if (page < 1 || page > Math.ceil(data.length / itemsPerPage)) {
-      return;
+    if (page > 0 && page <= Math.ceil(data.length / itemsPerPage)) {
+      setPage(page);
     }
-    setPage(page);
   };
 
   const handleTenencia = (tenencia) => {
