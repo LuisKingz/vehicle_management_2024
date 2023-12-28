@@ -53,12 +53,13 @@ export const User = () => {
   const handleRegister = async (user, emailAux) => {
     if (isEdit) {
       const result = data.filter((user) => user._id === updateData._id);
-      result[0].nombre = user.nombre;
-      result[0].email = user.email;
-      result[0].password = user.password;
-      result[0].rol = user.rol;
+      const targetUser = result[0];
+      targetUser.nombre = user.nombre;
+      targetUser.email = user.email;
+      targetUser.password = user.password;
+      targetUser.rol = user.rol;
       await updateUser(emailAux, user);
-      setData([...data]);
+      setData(data);
 
       Swal.fire({
         position: "center",

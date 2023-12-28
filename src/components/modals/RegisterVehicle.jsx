@@ -10,6 +10,7 @@ export const RegisterVehicle = ({
   setIsVisible,
   updateData,
 }) => {
+  const [placaAux, setPlacaAux] = useState("");
   const [validField, setValidField] = useState({});
   const [imgSelected, setImgSelected] = useState(defaultImg);
   const [data, setdata] = useState({
@@ -53,6 +54,7 @@ export const RegisterVehicle = ({
       observaciones: isEdit ? updateData.observaciones : "",
     });
     setImgSelected(isEdit ? updateData.foto : defaultImg);
+    setPlacaAux(isEdit ? updateData.placa : "");
   }, []);
 
   const handleCloseModal = () => {
@@ -131,7 +133,7 @@ export const RegisterVehicle = ({
     }
 
     if (isValid) {
-      handleRegister(data);
+      handleRegister(data, placaAux);
       handleCloseModal();
       setValidField({
         tipo: false,

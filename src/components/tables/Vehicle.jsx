@@ -52,48 +52,47 @@ export const Vehicle = () => {
     const res = await getVehicles();
     setData(res);
   };
-const filterVehicles = (search) => {
-  if (search === "") {
-    getVehicleData();
-    return;
-  }
+  const filterVehicles = (search) => {
+    if (search === "") {
+      getVehicleData();
+      return;
+    }
 
-  const value = search.toLowerCase();
-  const result = data.filter((vehicle) => {
-    return (
-      vehicle.placa.toLowerCase().includes(value) ||
-      vehicle.marca.toLowerCase().includes(value) ||
-      vehicle.modelo.toLowerCase().includes(value) ||
-      vehicle.tipo.toLowerCase().includes(value)
-    );
-  });
-
-  setData(value === "" ? [] : result);
-};
-
-  const handleRegister = async (vehicle) => {
-    if (isEdit) {
-      const result = data.filter(
-        (vehicle) => vehicle.placa === updateData.placa
+    const value = search.toLowerCase();
+    const result = data.filter((vehicle) => {
+      return (
+        vehicle.placa.toLowerCase().includes(value) ||
+        vehicle.marca.toLowerCase().includes(value) ||
+        vehicle.modelo.toLowerCase().includes(value) ||
+        vehicle.tipo.toLowerCase().includes(value)
       );
-      result[0].foto = vehicle.foto;
-      result[0].tipo = vehicle.tipo;
-      result[0].placa = vehicle.placa;
-      result[0].marca = vehicle.marca;
-      result[0].modelo = vehicle.modelo;
-      result[0].entidad = vehicle.entidad;
-      result[0].year = vehicle.year;
-      result[0].cilindraje = vehicle.cilindraje;
-      result[0].serie = vehicle.serie;
-      result[0].motor = vehicle.motor;
-      result[0].tarjeta = vehicle.tarjeta;
-      result[0].seguro = vehicle.seguro;
-      result[0].tenencia = vehicle.tenencia;
-      result[0].verificacion = vehicle.verificacion;
-      result[0].mantenimiento = vehicle.mantenimiento;
-      result[0].observaciones = vehicle.observaciones;
-      await updateVehicle(vehicle.placa, vehicle);
-      setData([...data]);
+    });
+
+    setData(value === "" ? [] : result);
+  };
+
+  const handleRegister = async (vehicle, placaAux) => {
+    if (isEdit) {
+      const result = data.filter((vehicle) => vehicle.placa === placaAux);
+      const targetVehicle = result[0];
+      targetVehicle.foto = vehicle.foto;
+      targetVehicle.tipo = vehicle.tipo;
+      targetVehicle.placa = vehicle.placa;
+      targetVehicle.marca = vehicle.marca;
+      targetVehicle.modelo = vehicle.modelo;
+      targetVehicle.entidad = vehicle.entidad;
+      targetVehicle.year = vehicle.year;
+      targetVehicle.cilindraje = vehicle.cilindraje;
+      targetVehicle.serie = vehicle.serie;
+      targetVehicle.motor = vehicle.motor;
+      targetVehicle.tarjeta = vehicle.tarjeta;
+      targetVehicle.seguro = vehicle.seguro;
+      targetVehicle.tenencia = vehicle.tenencia;
+      targetVehicle.verificacion = vehicle.verificacion;
+      targetVehicle.mantenimiento = vehicle.mantenimiento;
+      targetVehicle.observaciones = vehicle.observaciones;
+      await updateVehicle(placaAux, vehicle);
+      setData(data);
       Swal.fire({
         position: "center",
         icon: "success",
@@ -103,7 +102,6 @@ const filterVehicles = (search) => {
       });
     } else {
       delete vehicle._id;
-      setData([...data, vehicle]);
       await addVehicles(vehicle);
       Swal.fire({
         position: "center",
@@ -112,6 +110,7 @@ const filterVehicles = (search) => {
         showConfirmButton: false,
         timer: 1500,
       });
+      setData([...data, vehicle]);
     }
     setIsEdit(false);
     setIsVisible(false);
